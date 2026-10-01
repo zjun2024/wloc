@@ -11,19 +11,19 @@
 ## 订阅地址
 
 **Surge:**
-https://raw.githubusercontent.com/zjun2024/wloc/refs/heads/main/modules/wloc.sgmodule
+https://wloc.zjun03321.dpdns.org/files/wloc.sgmodule
 
 **Quantumult X:**
-https://raw.githubusercontent.com/zjun2024/wloc/refs/heads/main/modules/wloc.conf
+https://wloc.zjun03321.dpdns.org/files/wloc.conf
 
 **Loon:**
-https://raw.githubusercontent.com/zjun2024/wloc/refs/heads/main/modules/wloc.lpx
+https://wloc.zjun03321.dpdns.org/files/wloc.lpx
 
 **Stash:**
-https://raw.githubusercontent.com/zjun2024/wloc/refs/heads/main/modules/wloc.stoverride
+https://wloc.zjun03321.dpdns.org/files/wloc.stoverride
 
 **Shadowrocket(小火箭):**
-https://raw.githubusercontent.com/zjun2024/wloc/refs/heads/main/modules/wloc.module
+https://wloc.zjun03321.dpdns.org/files/wloc.module
 
 > Egern 可直接使用 Surge 模块
 > Stash 请直接订阅上面的 `.stoverride`，无需用 Script Hub 转换

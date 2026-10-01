@@ -2,7 +2,7 @@ name: Apple WLOC 定位修改
 desc: "修改 Apple 网络定位返回坐标 | 快捷指令(推荐): 设置地理位置 https://www.icloud.com/shortcuts/4d8facdc933e4466841d7ada8e810e69 清理恢复位置 https://www.icloud.com/shortcuts/2a95780ae41b44bbb6a8c54175370bcc | 选点页面: https://wloc.zjun03321.dpdns.org/"
 author: zjun2024
 homepage: https://github.com/zjun2024/wloc
-icon: https://raw.githubusercontent.com/zjun2024/wloc/refs/heads/main/wloc.jpg
+icon: https://wloc.zjun03321.dpdns.org/files/wloc.jpg
 category: Tools
 
 http:
@@ -26,8 +26,8 @@ http:
 
 script-providers:
   WLOC.Location:
-    url: https://raw.githubusercontent.com/zjun2024/wloc/refs/heads/main/dist/wloc.js
+    url: https://wloc.zjun03321.dpdns.org/files/wloc.js
     interval: 86400
   WLOC.Settings:
-    url: https://raw.githubusercontent.com/zjun2024/wloc/refs/heads/main/dist/wloc-settings.js
+    url: https://wloc.zjun03321.dpdns.org/files/wloc-settings.js
     interval: 86400

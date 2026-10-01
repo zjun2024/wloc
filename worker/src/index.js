@@ -1,11 +1,23 @@
 import { Hono } from "hono/tiny";
 import { getPageHtml } from "./page.js";
 import { parseCoords, gcj02ToWgs84, round6 } from "./parse.js";
+import { STATIC_FILES } from "./static-files.js";
 
 const app = new Hono();
 
 app.get("/", (c) => {
   return c.html(getPageHtml());
+});
+
+// 自托管静态文件（模块订阅 / 脚本 / 图标），与 GitHub raw 解耦
+// GET /files/<name>  name ∈ STATIC_FILES
+app.get("/files/:name", (c) => {
+  const f = STATIC_FILES[c.req.param("name")];
+  if (!f) return c.text("not found", 404);
+  c.header("Content-Type", f.mime);
+  c.header("Cache-Control", "public, max-age=300");
+  c.header("Access-Control-Allow-Origin", "*");
+  return c.body(Uint8Array.from(atob(f.b64), (ch) => ch.charCodeAt(0)));
 });
 
 // 地图链接解析: 供快捷指令调用。
