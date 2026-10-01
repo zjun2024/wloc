@@ -175,6 +175,7 @@ https://raw.githubusercontent.com/zjun2024/wloc/refs/heads/main/modules/wloc.mod
 
 **我的实例（可直接用）：**
 
+- **自定义域名**: `https://wloc.zjun03321.dpdns.org/`
 - **Workers**: `https://wloc-spoofer.zjun03321.workers.dev/`
 
 公共页面有请求上限，也可按下面步骤部署自己的实例：
