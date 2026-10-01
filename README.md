@@ -30,42 +30,6 @@ https://raw.githubusercontent.com/zjun2024/wloc/refs/heads/main/modules/wloc.mod
 
 ---
 
-## 快捷指令（推荐，最方便）
-
-直接用快捷指令切换 / 清除定位，无需打开选点页面：
-
-- **wloc 设置地理位置**：https://www.icloud.com/shortcuts/a82717d8fdad4e6280866fcf911173f7
-- **wloc 清理恢复位置**：https://www.icloud.com/shortcuts/f42632d406504f24a2cd163af4fe012f
-
-**用法**
-
-- **设置位置：** 在地图 App 里选好位置（长按地图选点）→ 共享 → 选「wloc 设置地理位置」即可切换。
-  - 苹果地图：选点 → 共享 → 「wloc 设置地理位置」
-  - 高德地图：选点 → 分享 → **更多** → 「wloc 设置地理位置」
-- **清理位置：** 点「wloc 清理恢复位置」即可恢复真实定位。
-
-支持苹果地图、高德（含短链，自动跟跳转 + GCJ-02→WGS84 坐标换算）。
-
-> 前提：代理已开 + 模块已启用 + 信任 `gs-loc.apple.com`。选点页面（Worker / Pages）方案仍保留，见下方。
-
----
-
-### 关于地图链接解析（worker）
-
-为了让苹果地图和高德走同一条流程，链接统一发给 `wloc-spoofer.wloc.workers.dev/api/parse` 解析：
-
-- **高德**：分享出来是短链，真实坐标只藏在 302 跳转的 `Location` 头里，且是 GCJ-02 偏移坐标。快捷指令既读不到跳转头、也难做坐标换算，所以由 worker 跟跳转 → 抠坐标 → GCJ-02→WGS84 → 返回经纬度。
-- **苹果地图**：链接里直接带 `coordinate=纬度,经度`，但在**中国大陆同样是 GCJ-02 偏移坐标**，所以和高德一样由 worker 做 GCJ-02→WGS84 换算后返回；境外坐标会自动跳过换算（`out_of_china` 判断）原样返回。除了统一坐标系，走同一接口也方便统一处理短链、文本夹链接、名称解码等。
-
-**隐私：** `/api/parse` 是纯转发解析——收到链接 → 跟跳转 → 解析坐标 → 返回 JSON，全程不写任何存储、不记日志、不缓存，处理完即丢。
-
-**不放心可自行部署：** worker 源码完全开源，可自己部署一份替换上面的地址：
-
-- 解析逻辑：[`worker/src/parse.js`](worker/src/parse.js)，路由：[`worker/src/index.js`](worker/src/index.js)
-- 部署后把快捷指令里的 `wloc-spoofer.wloc.workers.dev` 换成你自己的 worker 域名即可。
-
----
-
 <details>
 <summary><b>使用方法</b></summary>
 
@@ -173,14 +137,15 @@ https://raw.githubusercontent.com/zjun2024/wloc/refs/heads/main/modules/wloc.mod
 <details>
 <summary><b>自部署 Worker（推荐）</b></summary>
 
-公共选点页面有请求上限，建议部署自己的实例：
+**我的实例（可直接用）：**
 
-- **Workers**: `https://wloc-spoofer.wloc.workers.dev/`
-- **Pages**: `https://wloc-pages.pages.dev/`
+- **Workers**: `https://wloc-spoofer.zjun03321.workers.dev/`
+
+公共页面有请求上限，也可按下面步骤部署自己的实例：
 
 **一键部署（Workers）：**
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Yu9191/wloc/tree/main/worker)
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/zjun2024/wloc/tree/main/worker)
 
 > 一键部署仅支持 Workers 模式，点击按钮后按提示授权即可完成部署。
 
@@ -188,7 +153,7 @@ https://raw.githubusercontent.com/zjun2024/wloc/refs/heads/main/modules/wloc.mod
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/Yu9191/wloc.git
+git clone https://github.com/zjun2024/wloc.git
 cd wloc/worker
 
 # 2. 安装依赖
@@ -211,7 +176,7 @@ npm run deploy
 Pages 部署不支持一键按钮，需要手动执行：
 
 ```bash
-git clone https://github.com/Yu9191/wloc.git
+git clone https://github.com/zjun2024/wloc.git
 cd wloc/worker
 npm install
 npx wrangler pages deploy dist --project-name <自定义项目名>
